@@ -112,4 +112,4 @@ console.log(
   totalFuelReq
     .map(fuels => fuels.reduce((p, c) => p + c, 0))
     .reduce((p, c) => p + c, 0)
-)
+) // 4725720

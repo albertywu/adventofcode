@@ -2,7 +2,7 @@ console.log(
   findRepeat([1, -1]) // 0
 )
 console.log(
-  findRepeat([3, 3, 4, -2, -4]) // { 0, 3, 6, 10, 8, 4}
+  findRepeat([3, 3, 4, -2, -4]) // 10
 )
 console.log(
   findRepeat([-6, 3, 8, 5, -6]) // 5

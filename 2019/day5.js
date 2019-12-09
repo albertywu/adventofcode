@@ -30,7 +30,7 @@ function process(program, input) {
         bMode === '0' ? p[idx + 2] : idx + 2
       ]
       idx += 4
-    } else if (String(input[idx]).endsWith('01')) {
+    } else if (String(input[idx]).endsWith('02')) {
       // handle multiplication with modes
       const instruction = String(input[idx]).padStart(4, '0')
       const [bMode, aMode, _] = [...instruction]

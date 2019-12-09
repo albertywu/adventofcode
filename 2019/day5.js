@@ -8,41 +8,41 @@ BA02 a b c => multiplies a, b and puts result in address c
 */
 
 function process(program, input) {
-  const _program = [...program]
-  _program[_program[1]] = input // store input in specified position
+  const p = [...program]
+  p[p[1]] = input // store input in specified position
   let idx = 2
   const output = []
-  while (_program[idx] !== 99) {
-    if (_program[idx] === 1) {
-      _program[_program[idx + 3]] = _program[_program[idx + 1]] + _program[_program[idx + 2]]
+  while (p[idx] !== 99) {
+    if (p[idx] === 1) {
+      p[p[idx + 3]] = p[p[idx + 1]] + p[p[idx + 2]]
       idx += 4
     } else if (input[idx] === 2) {
-      _program[_program[idx + 3]] = _program[_program[idx + 1]] * _program[_program[idx + 2]]
+      p[p[idx + 3]] = p[p[idx + 1]] * p[p[idx + 2]]
       idx += 4
     } else if (String(input[idx]).endsWith('01')) {
       // handle addition with modes
       const instruction = String(input[idx]).padStart(4, '0')
       const [bMode, aMode, _] = [...instruction]
-      _program[_program[idx + 3]] = _program[
-        aMode === '0' ? _program[idx + 1] : idx + 1
+      p[p[idx + 3]] = p[
+        aMode === '0' ? p[idx + 1] : idx + 1
       ] + 
-      _program[
-        bMode === '0' ? _program[idx + 2] : idx + 2
+      p[
+        bMode === '0' ? p[idx + 2] : idx + 2
       ]
       idx += 4
     } else if (String(input[idx]).endsWith('01')) {
       // handle multiplication with modes
       const instruction = String(input[idx]).padStart(4, '0')
       const [bMode, aMode, _] = [...instruction]
-      _program[_program[idx + 3]] = _program[
-        aMode === '0' ? _program[idx + 1] : idx + 1
+      p[p[idx + 3]] = p[
+        aMode === '0' ? p[idx + 1] : idx + 1
       ] * 
-      _program[
-        bMode === '0' ? _program[idx + 2] : idx + 2
+      p[
+        bMode === '0' ? p[idx + 2] : idx + 2
       ]
       idx += 4
-    } else if (_program[idx] === 4) {
-      output.push(_program[_program[idx + 1]])
+    } else if (p[idx] === 4) {
+      output.push(p[p[idx + 1]])
       idx += 2
     }
   }

@@ -1,4 +1,4 @@
-sum = 0;
+let sum = 0;
 for (const [l, w, h] of parseInput()) {
   sum += calcRibbon(l, w, h);
 }

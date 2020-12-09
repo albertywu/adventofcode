@@ -18,31 +18,6 @@ function getFirstInvalid(numbers, windowSize) {
   }
 }
 
-function input2() {
-  return `35
-  20
-  15
-  25
-  47
-  40
-  62
-  55
-  65
-  95
-  102
-  117
-  150
-  182
-  127
-  219
-  299
-  277
-  309
-  576`
-    .split("\n")
-    .map((_) => Number(_));
-}
-
 function input() {
   return `37
 1

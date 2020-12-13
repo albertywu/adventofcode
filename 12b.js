@@ -6,44 +6,36 @@ console.log(endPos)
 function run(commands) {
   let x = 0
   let y = 0
+  let waypointX = 10
+  let waypointY = 1
   let dir = 'E'
   for (const command of commands) {
-    console.log(x, y, dir)
+    console.log(x, y, waypointX, waypointY, dir, command)
     switch (command.type) {
       case 'moveDir':
         switch (command.dir) {
           case 'N':
-            y += command.qty
+            waypointY += command.qty
             break
           case 'E':
-            x += command.qty
+            waypointX += command.qty
             break
           case 'S':
-            y -= command.qty
+            waypointY -= command.qty
             break
           case 'W':
-            x -= command.qty
+            waypointX -= command.qty
             break
         }
         break
-      case 'moveForward':
-        switch (dir) {
-          case 'N':
-            y += command.qty
-            break
-          case 'E':
-            x += command.qty
-            break
-          case 'S':
-            y -= command.qty
-            break
-          case 'W':
-            x -= command.qty
-            break
-        }
+      case 'moveForward': // move towards waypoint qty times... waypoint moves with ship
+        y = y + command.qty * waypointY
+        x = x + command.qty * waypointX
         break
       case 'turn':
-        dir = turn(dir, command.qty) // turn 1, 2, 3, -1, -2, -3 will change dir
+        const result = turn([waypointX, waypointY], command.qty) // turn 1, 2, 3, -1, -2, -3 will change dir
+        waypointX = result[0]
+        waypointY = result[1]
         break
       default:
         throw new Error(`unrecognized command type ${command.type}`)
@@ -52,12 +44,25 @@ function run(commands) {
   return [x, y, dir]
 }
 
-function turn(dir, qty) {
-  const dirs = ['N', 'E', 'S', 'W']
-  const newIdx = dirs.indexOf(dir) + qty
-  return dirs[
-    newIdx >= 0 ? (newIdx % dirs.length) : dirs.length + newIdx
-  ]
+// [10, 4] -> [4, -10] -> [-10, -4] -> [-4, 10]
+// [10, 0] -> [0, -10] -> [-10, 0] -> [0, 10]
+function turn(waypoint, qty) {
+  let [x, y] = waypoint
+  if (qty > 0) {
+    for (let i = 0; i < qty; i++) {
+      const tmp = x
+      x = y
+      y = -1 * tmp
+    }
+  } else if (qty < 0) {
+    for (let i = 0; i < Math.abs(qty); i++) {
+      const tmp = x
+      x = -1 * y
+      y = tmp
+    }
+  }
+  
+  return [x, y]
 }
 
 /*

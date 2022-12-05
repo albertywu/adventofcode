@@ -1,18 +1,16 @@
 import re
 
 
-def move(stacks, count, fromIdx, toIdx):
-    source = stacks[fromIdx]
-    dest = stacks[toIdx]
+def move(stacks, count, source_stack_index, destination_stack_index):
+    source_stack = stacks[source_stack_index]
+    destination_stack = stacks[destination_stack_index]
     for n in range(count):
-        dest.append(source.pop())
+        destination_stack.append(source_stack.pop())
     return stacks
 
 
 def printStack(stacks):
-    tops = []
-    for i in range(1, len(stacks)):
-        tops.append(stacks[i][-1])
+    tops = [stack[-1] for stack in stacks[1:]]
     print("".join(tops))
 
 
@@ -33,10 +31,11 @@ def solve():
     with open('5.in') as f:
         for line in f.read().strip().split("\n"):
             m = p.match(line.strip())
-            count = int(m.group(1))
-            fromIdx = int(m.group(2))
-            toIdx = int(m.group(3))
-            move(stacks, count, fromIdx, toIdx)
+            count, source_stack_index, destination_stack_index = m.groups()
+            count = int(count)
+            source_stack_index = int(source_stack_index)
+            destination_stack_index = int(destination_stack_index)
+            move(stacks, count, source_stack_index, destination_stack_index)
     printStack(stacks)
 
 

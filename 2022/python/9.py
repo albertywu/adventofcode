@@ -1,4 +1,4 @@
-with open("9.in") as f:
+with open("9.sample") as f:
     inp = f.read().strip()
 
 
@@ -18,13 +18,25 @@ def update_tail(head, tail):
     is_connected = abs(head[0] - tail[0]) < 2 and abs(head[1] - tail[1]) < 2
     if is_connected:
         return tail
-    elif head[0] - tail[0] >= 2:
+    elif (
+        (abs(head[0] - tail[0]) >= 2 or abs(head[1] - tail[1]) >= 2) and
+        head[0] != tail[0] and head[1] != tail[1]  # is at diagonal
+    ):
+        if head[0] > tail[0] and head[1] > tail[1]:
+            return tail[0] + 1, tail[1] + 1
+        elif head[0] > tail[0] and head[1] < tail[1]:
+            return tail[0] + 1, tail[1] - 1
+        elif head[0] < tail[0] and head[1] > tail[1]:
+            return tail[1] - 1, tail[1] + 1
+        elif head[0] < tail[0] and head[1] < tail[1]:
+            return tail[1] - 1, tail[1] - 1
+    elif head[0] - tail[0] > 1:
         return head[0] - 1, head[1]
-    elif tail[0] - head[0] >= 2:
+    elif tail[0] - head[0] > 1:
         return head[0] + 1, head[1]
-    elif head[1] - tail[1] >= 2:
+    elif head[1] - tail[1] > 1:
         return head[0], head[1] - 1
-    elif tail[1] - head[1] >= 2:
+    elif tail[1] - head[1] > 1:
         return head[0], head[1] + 1
     else:
         raise Exception("rope broke (this should nt happen)!")

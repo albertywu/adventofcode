@@ -1,3 +1,7 @@
 just a test
 to see
 how graphite works.
+
+---
+
+adding some changes to day1.txt

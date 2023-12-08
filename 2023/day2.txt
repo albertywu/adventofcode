@@ -1,1 +1,3 @@
 day 2 solution
+
+updating day 2's solution
